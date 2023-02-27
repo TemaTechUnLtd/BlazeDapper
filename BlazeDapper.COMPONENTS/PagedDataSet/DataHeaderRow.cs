@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace BlazeDapper.COMPONENTS.PagedDataSet
 {
-    public class DataHeaderRow
+    public partial class DataHeaderRow<T> : ComponentBase where T : class
     {
+        [CascadingParameter]
+        public PagedDataSetBase<T> TopPage { get; set; }
+
+        private async Task GetFilteredData()
+        {
+            await TopPage.GetFilteredData();
+        }
+
+        private async Task ClearFilters()
+        {
+            await TopPage.TaskClearFilters();
+        }
     }
 }

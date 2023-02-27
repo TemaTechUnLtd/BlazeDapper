@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlazeDapper.MODELS.DAL;
+using Microsoft.AspNetCore.Components;
 
 namespace BlazeDapper.COMPONENTS.PagedDataSet
 {
-    public class PagedDataTable
+    public partial class PagedDataTable<T> : ComponentBase where T : class
     {
+        [CascadingParameter]
+        public PagedDataSetBase<T> TopPage { get; set; }
+
+        [Parameter]
+        public PagedResultSet<List<T>> pagedTableData { get; set; } = new PagedResultSet<List<T>>();
     }
 }
