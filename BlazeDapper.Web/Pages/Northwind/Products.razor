@@ -1,4 +1,8 @@
-﻿@using BlazeDapper.COMPONENTS.PagedDataSet;
+﻿@page "/products"
+@page "/products/{Id}"
+
+@using BlazeDapper.COMPONENTS.PagedDataSet;
+@using BlazeDapper.COMPONENTS.Shared;
 @using BlazeDapper.CORE;
 @using BlazeDapper.MODELS.DAL;
 @using BlazeDapper.MODELS.DTO;
@@ -6,8 +10,8 @@
 
 @inherits PagedDataSetBase<Product>
 
-<h3>Products</h3>
-
-@code {
-
-}
+<CascadingValue Value="this">
+    <Loading IsLoading=IsLoading>
+        <PagedDataTable T=Product  pagedTableData=pagedResultSet />
+    </Loading>
+</CascadingValue>

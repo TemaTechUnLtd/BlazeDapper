@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 namespace BlazeDapper.WEB.Pages.Northwind
 {
 
-    public partial class Suppliers : PagedDataSetBase<Customer>
+    public partial class Suppliers : PagedDataSetBase<Supplier>
     {
         [Inject]
         protected ITheService BlazeService { get; set; }

@@ -1,11 +1,19 @@
-﻿@using BlazeDapper.COMPONENTS.PagedDataSet;
+﻿@page "/orderitems"
+@page "/orderitems/{Id}"
+
+@using BlazeDapper.COMPONENTS.PagedDataSet;
+@using BlazeDapper.COMPONENTS.Shared;
 @using BlazeDapper.CORE;
 @using BlazeDapper.MODELS.DAL;
 @using BlazeDapper.MODELS.DTO;
 @using Microsoft.AspNetCore.Components;
 
-@inherits PagedDataSetBase<OrderItems>
+@inherits PagedDataSetBase<OrderItem>
 
-<h3>OrderItems</h3>
+<CascadingValue Value="this">
+    <Loading IsLoading=IsLoading>
+        <PagedDataTable T=OrderItem pagedTableData=pagedResultSet />
+    </Loading>
+</CascadingValue>
 
 
