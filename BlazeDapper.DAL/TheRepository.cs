@@ -7,10 +7,10 @@ namespace BlazeDapper.DAL
 {
     public class TheRepository : ITheRepository
     {
-        private readonly BlazeContext _context;
+        private readonly TheDataContext _context;
         private readonly IConfiguration _configuration;
 
-        public TheRepository(BlazeContext context, IConfiguration configuration)
+        public TheRepository(TheDataContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
@@ -19,8 +19,9 @@ namespace BlazeDapper.DAL
         public async Task<PagedResultSet<List<Customer>>> GetCustomers(PagedDataRequest request)
         {
             //remove duplication
-
-            var query = QueryGenerator.GetQuery<Customer>(request);
+            try
+            {
+ var query = QueryGenerator.GetQuery<Customer>(request);
 
             Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
@@ -29,6 +30,13 @@ namespace BlazeDapper.DAL
                 var itemCollection = await QueryRunner.GetPagedDataAsync<Customer>(query, connection, queryParams, request.Paging);
                 return itemCollection;
             }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
 
         public async Task<PagedResultSet<List<OrderItem>>> GetOrderItems(PagedDataRequest request)

@@ -1,17 +1,32 @@
 ﻿@page "/customers"
 @page "/customers/{Id}"
 
+@inherits PagedDataSetBase<Customer>
+
 @using BlazeDapper.COMPONENTS.PagedDataSet;
 @using BlazeDapper.COMPONENTS.Shared
 @using BlazeDapper.CORE;
 @using BlazeDapper.MODELS;
 @using BlazeDapper.MODELS.DAL;
-@using Microsoft.AspNetCore.Components;
 
-@inherits PagedDataSetBase<Customer>
+
+
 
 <CascadingValue Value="this">
     <Loading IsLoading=IsLoading>
         <PagedDataTable T=Customer pagedTableData=pagedResultSet />
     </Loading>
 </CascadingValue>
+
+
+@code{
+
+    [Inject]
+    protected ITheService theService { get; set; }
+
+    protected override async Task<PagedResultSet<List<Customer>>> GetItems(PagedDataRequest pagedDataRequest)
+    {
+        return await theService.GetCustomers(pagedDataRequest);
+    }
+
+}

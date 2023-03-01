@@ -4,15 +4,15 @@ using System.Data;
 
 namespace BlazeDapper.DAL
 {
-    public class BlazeContext
+    public class TheDataContext
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public BlazeContext(IConfiguration configuration)
+        public TheDataContext(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("BlazeConnection");
+            _connectionString = _configuration.GetConnectionString("TheConnection");
         }
 
         public IDbConnection CreateConnection(string connectionString)

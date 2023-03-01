@@ -16,3 +16,14 @@
     </Loading>
 </CascadingValue>
  
+@code {
+
+    [Inject]
+    protected ITheService theService { get; set; }
+
+    protected override async Task<PagedResultSet<List<Product>>> GetItems(PagedDataRequest pagedDataRequest)
+    {
+        return await theService.GetProducts(pagedDataRequest);
+    }
+
+}

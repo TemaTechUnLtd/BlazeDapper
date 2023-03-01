@@ -14,8 +14,8 @@
             {
                 <li class="page-item">
                     <a class="page-link"
-                        @onclick="GetPreviousPage"
-                        @onclick:preventDefault>
+                   @onclick="GetPreviousPage"
+                   @onclick:preventDefault>
                         Previous
                     </a>
                 </li>
@@ -28,12 +28,12 @@
             @if (TopPage.pagingData.HasNextPage)
             {
                 <li class="page-item">
-                        <a class="page-link"
-                        @onclick="GetNextPage"
-                        @onclick:preventDefault>
-                            Next
-                        </a>
-                    </li>
+                    <a class="page-link"
+                   @onclick="GetNextPage"
+                   @onclick:preventDefault>
+                        Next
+                    </a>
+                </li>
             }
         </ul>
     </div>

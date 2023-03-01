@@ -16,4 +16,8 @@
     <ProjectReference Include="..\BlazeDapper.MODELS\BlazeDapper.MODELS.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DBSetup\" />
+  </ItemGroup>
+
 </Project>

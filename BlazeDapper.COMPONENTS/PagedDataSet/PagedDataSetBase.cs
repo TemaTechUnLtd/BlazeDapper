@@ -149,8 +149,10 @@
             IsLoading = false;
             StateHasChanged();
         }
-        #endregion
+
       
+        #endregion
+
         public async Task TaskClearFilters() 
         {
             foreach (var filter in ColumnFilters)
@@ -175,10 +177,10 @@
             StateHasChanged();
         }
 
-        public virtual async Task<PagedResultSet<List<T>>> GetItems(PagedDataRequest pagedDataRequest)
-        {
-            return new PagedResultSet<List<T>>();
-        }
+        protected abstract  Task<PagedResultSet<List<T>>> GetItems(PagedDataRequest pagedDataRequest);
+        //{
+        //    return new PagedResultSet<List<T>>();
+        //}
 
         public  Task HandleLinkAction<T>(string columnName, object dataItem)
         {

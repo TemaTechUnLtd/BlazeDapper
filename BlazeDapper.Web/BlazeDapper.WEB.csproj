@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazeDapper.COMPONENTS\BlazeDapper.COMPONENTS.csproj" />
-    <ProjectReference Include="..\BlazeDapper.DAL\BlazeDapper.DAL.csproj" />
   </ItemGroup>
 
 </Project>

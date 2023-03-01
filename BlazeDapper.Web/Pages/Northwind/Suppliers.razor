@@ -18,3 +18,14 @@
 
 
 
+@code {
+
+    [Inject]
+    protected ITheService theService { get; set; }
+
+    protected override async Task<PagedResultSet<List<Supplier>>> GetItems(PagedDataRequest pagedDataRequest)
+    {
+        return await theService.GetSuppliers(pagedDataRequest);
+    }
+
+}

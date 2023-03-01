@@ -11,7 +11,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddSingleton<ITheService, TheService>();
 
-builder.Services.AddSingleton<BlazeContext>();
+builder.Services.AddSingleton<TheDataContext>();
 builder.Services.AddSingleton<ITheRepository, TheRepository>();
 
 var app = builder.Build();
