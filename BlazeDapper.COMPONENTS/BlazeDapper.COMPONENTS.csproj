@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -12,12 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
+    <PackageReference Include="HeroIcons.Blazor" Version="1.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlazeDapper.CORE\BlazeDapper.CORE.csproj" />
-    <ProjectReference Include="..\BlazeDapper.MODELS\BlazeDapper.MODELS.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazeDapper.Web", "BlazeDapper.Web\BlazeDapper.Web.csproj", "{53DF7934-B2CA-47DB-AD72-15B7A0CBE673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazeDapper.Web", "BlazeDapper.Web\BlazeDapper.Web.csproj", "{53DF7934-B2CA-47DB-AD72-15B7A0CBE673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazeDapper.DAL", "BlazeDapper.DAL\BlazeDapper.DAL.csproj", "{1D78872E-4C21-4759-8C0A-AE128988B56F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazeDapper.DAL", "BlazeDapper.DAL\BlazeDapper.DAL.csproj", "{1D78872E-4C21-4759-8C0A-AE128988B56F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazeDapper.CORE", "BlazeDapper.CORE\BlazeDapper.CORE.csproj", "{B73255DD-37DD-4F73-A310-B55474D2B4D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazeDapper.CORE", "BlazeDapper.CORE\BlazeDapper.CORE.csproj", "{B73255DD-37DD-4F73-A310-B55474D2B4D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazeDapper.MODELS", "BlazeDapper.MODELS\BlazeDapper.MODELS.csproj", "{8A74DC93-1213-4764-8284-0A78BD1BFEAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazeDapper.MODELS", "BlazeDapper.MODELS\BlazeDapper.MODELS.csproj", "{8A74DC93-1213-4764-8284-0A78BD1BFEAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazeDapper.COMPONENTS", "BlazeDapper.COMPONENTS\BlazeDapper.COMPONENTS.csproj", "{71C9C192-7DD2-4F08-BC0A-039DF345ED1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazeDapper.COMPONENTS", "BlazeDapper.COMPONENTS\BlazeDapper.COMPONENTS.csproj", "{71C9C192-7DD2-4F08-BC0A-039DF345ED1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using BlazeDapper.DAL.Utilities;
+using BlazeDapper.MODELS;
 using BlazeDapper.MODELS.DAL;
-using BlazeDapper.MODELS.DTO;
 using Microsoft.Extensions.Configuration;
 
 namespace BlazeDapper.DAL

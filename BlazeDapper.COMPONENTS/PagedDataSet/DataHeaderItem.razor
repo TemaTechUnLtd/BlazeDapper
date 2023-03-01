@@ -1,5 +1,58 @@
-﻿<h3>DataHeaderItem</h3>
+﻿@using HeroIcons.Blazor.Outline
+@typeparam T
 
-@code {
 
-}
+<th >
+    <div >
+        <div >
+            <span>@ColumnHeader.DisplayName</span>
+
+            <div>
+                <a href="#" @onclick='(()=>GetSortedData(ColumnHeader.ColumnName))'
+                   title="Sort by @ColumnHeader.DisplayName"
+                  
+                   @onclick:preventDefault>
+                    <SwitchVerticalIcon style="height:20px;" class="text-blue-600" />
+                </a>
+                @if (ColumnHeader.ColumnType != TypeCode.DateTime)
+                {
+                    <a href="#" @onclick:preventDefault @onclick="AddSearchTerm"
+                  
+                   title="Add Search Term">
+                        <PlusCircleIcon style="height:20px;" class="text-blue-600" />
+                    </a>
+                    <a href="#" @onclick:preventDefault @onclick="RemoveSearchTerm"
+                   
+                   title="Remove Search Term">
+                        <MinusCircleIcon style="height:20px;" class="text-blue-600" />
+                    </a>
+                }
+            </div>
+        </div>
+
+
+        <div>
+
+            @if (ColumnHeader.ColumnType == TypeCode.String || ColumnHeader.ColumnType == TypeCode.Int32)
+            {
+                @for (var i = 0; i < ColumnHeader.SearchTerms.Count(); i++)
+                {
+                    <DataHeaderItemFilter Index="i"
+                                  ColumnName="@ColumnHeader.ColumnName"
+                                  DisplayName="@ColumnHeader.DisplayName"
+                                  SearchTerm="@ColumnHeader.SearchTerms[i]"
+                                  T="T" />
+                }
+            }
+
+            @if (ColumnHeader.ColumnType == TypeCode.DateTime)
+            {
+                <div class="flex flex-col">
+                    <input @bind="@ColumnHeader.FromDate" type="date" title="Start Date" class="form-control" placeholder="From Date" @onblur="SetFilterType">
+                    <input @bind="@ColumnHeader.ToDate" type="date" title="End Date" class="form-control" placeholder="To Date" @onblur="SetFilterType">
+                </div>
+            }
+        </div>
+    </div>
+</th>
+

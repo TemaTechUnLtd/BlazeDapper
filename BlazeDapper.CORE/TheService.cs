@@ -1,6 +1,6 @@
 ﻿using BlazeDapper.DAL;
+using BlazeDapper.MODELS;
 using BlazeDapper.MODELS.DAL;
-using BlazeDapper.MODELS.DTO;
 
 namespace BlazeDapper.CORE
 {

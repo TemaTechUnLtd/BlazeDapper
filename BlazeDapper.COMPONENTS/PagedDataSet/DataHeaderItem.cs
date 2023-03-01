@@ -16,7 +16,7 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             await TopPage.GetSortedData(sortColumn);
         }
 
-        private async Task GetFilteredData()
+        public async Task GetFilteredData()
         {
             await TopPage.GetFilteredData();
         }

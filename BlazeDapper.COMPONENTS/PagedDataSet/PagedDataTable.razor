@@ -1,5 +1,33 @@
 ﻿@using BlazeDapper.MODELS.DAL;
 @typeparam T
 
+<table class="table">
+    <thead class="table-dark">
+        <DataHeaderRow T="T" />
+    </thead>
+    <tbody>
+        @if (pagedTableData != null && pagedTableData.Data != null)
+        {
+            @foreach (var item in pagedTableData.Data)
+            {
+                        <DataItemRow T="T" dataItem="item" />
+            }
+        }
+    </tbody>
+
+    @if (pagedTableData != null && pagedTableData.Data != null)
+    {
+        <caption><Paging T="T" /></caption>
+    }
+</table>
 
 
+
+@if (pagedTableData != null && pagedTableData.Data == null)
+{
+    <h4>@TopPage.Message</h4>
+}
+
+
+
+  

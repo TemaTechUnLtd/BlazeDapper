@@ -1,7 +1,7 @@
 ﻿using BlazeDapper.COMPONENTS.PagedDataSet;
 using BlazeDapper.CORE;
+using BlazeDapper.MODELS;
 using BlazeDapper.MODELS.DAL;
-using BlazeDapper.MODELS.DTO;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazeDapper.WEB.Pages.Northwind

@@ -1,5 +1,40 @@
-﻿<h3>Paging</h3>
+﻿@typeparam T
 
-@code {
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        <div>Showing <b>@TopPage.pagingData.StartRecord</b> to <b>@TopPage.pagingData.EndRecord</b> of <b>@TopPage.pagingData.TotalRecords</b> items</div>
+    </div>
 
-}
+</div>
+
+<div class="col-sm-12 col-md-6">
+    <div>
+        <ul class="pagination">
+            @if (TopPage.pagingData.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                        @onclick="GetPreviousPage"
+                        @onclick:preventDefault>
+                        Previous
+                    </a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link">
+                    @TopPage.pagingData.CurrentPageNumber
+                </a>
+            </li>
+            @if (TopPage.pagingData.HasNextPage)
+            {
+                <li class="page-item">
+                        <a class="page-link"
+                        @onclick="GetNextPage"
+                        @onclick:preventDefault>
+                            Next
+                        </a>
+                    </li>
+            }
+        </ul>
+    </div>
+</div>

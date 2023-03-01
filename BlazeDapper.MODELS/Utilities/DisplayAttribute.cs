@@ -1,4 +1,4 @@
-﻿namespace BlazeDapper.CORE.Utilities
+﻿namespace BlazeDapper.MODELS.Utilities
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class Display : Attribute

@@ -1,5 +1,5 @@
-﻿using BlazeDapper.MODELS.DAL;
-using BlazeDapper.MODELS.DTO;
+﻿using BlazeDapper.MODELS;
+using BlazeDapper.MODELS.DAL;
 
 namespace BlazeDapper.DAL
 {

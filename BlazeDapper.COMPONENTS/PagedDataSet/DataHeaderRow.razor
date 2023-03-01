@@ -1,5 +1,27 @@
-﻿<h3>DataHeaderRow</h3>
+﻿@typeparam T
 
-@code {
+<tr>
+    @if (TopPage.SurplussData.Any())
+    {
+        <th></th>
+    }
 
-}
+    @foreach (var columnHeader in TopPage.ColumnFilters)
+    {
+        <DataHeaderItem ColumnHeader="@columnHeader" T="T" />
+    }
+    <th>
+        <div>
+            <a href="#"
+               @onclick="GetFilteredData"
+               @onclick:preventDefault>
+                Search
+            </a>
+            <a href="#"
+               @onclick="ClearFilters"
+               @onclick:preventDefault>
+                Clear
+            </a>
+        </div>
+    </th>
+</tr>

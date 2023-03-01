@@ -5,7 +5,7 @@
 @using BlazeDapper.COMPONENTS.Shared;
 @using BlazeDapper.CORE;
 @using BlazeDapper.MODELS.DAL;
-@using BlazeDapper.MODELS.DTO;
+@using BlazeDapper.MODELS;
 @using Microsoft.AspNetCore.Components;
 
 @inherits PagedDataSetBase<Product>
@@ -15,3 +15,4 @@
         <PagedDataTable T=Product  pagedTableData=pagedResultSet />
     </Loading>
 </CascadingValue>
+ 

@@ -1,24 +1,17 @@
-﻿using BlazeDapper.CORE.Utilities;
-using BlazeDapper.MODELS;
-using BlazeDapper.MODELS.DAL;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace BlazeDapper.COMPONENTS.PagedDataSet
+﻿namespace BlazeDapper.COMPONENTS.PagedDataSet
 {
+    using BlazeDapper.MODELS;
+    using BlazeDapper.MODELS.DAL;
+    using BlazeDapper.MODELS.Utilities;
+    using Microsoft.AspNetCore.Components;
+
     public abstract class PagedDataSetBase<T> : ComponentBase where T : class
     {
         [Inject]
         protected NavigationManager NavigationManager { get; set; }      
 
         [Parameter]
-        public string ClientID { get; set; }
+        public int Id { get; set; }
 
         private PagedDataRequest pagedDataRequest { get; set; }
 
@@ -44,13 +37,13 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             pagedDataRequest = new PagedDataRequest { FilterSet = ColumnFilters, Paging = pagingRequest };
             IsLoading = true;
 
-            if (!String.IsNullOrEmpty(ClientID))//todo: find a more generic way fo doing this. Should not be hardcoding in identifier coloumn
+            if (Id > 0)//todo: find a more generic way fo doing this. Should not be hardcoding in identifier coloumn
             {
-                var patientFilter = ColumnFilters.SingleOrDefault(cf => cf.ColumnName == "PatientID" || cf.ColumnName == "ClientID");
+                var patientFilter = ColumnFilters.SingleOrDefault(cf => cf.ColumnName == "Id");
 
                 if (patientFilter != null)
                 {
-                    patientFilter.SearchTerms[0] = ClientID;
+                    patientFilter.SearchTerms[0] = Id.ToString();
                 }
 
                 pagedResultSet = await GetItems(pagedDataRequest);
@@ -63,6 +56,8 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             IsLoading = false;
         }
 
+      
+
         public async Task GetNextPage()
         {
             IsLoading = true;
@@ -70,7 +65,7 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
 
             pagedDataRequest.Paging.PageNumber = pagedResultSet.CurrentPageNumber + 1;
 
-            pagedResultSet = await GetCachedData(pagedDataRequest);
+            pagedResultSet = await GetItems(pagedDataRequest);
             if (pagedResultSet != null)
             {
                 pagingData.SetPagingInfo(pagedResultSet);
@@ -90,7 +85,7 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
 
             pagedDataRequest.Paging.PageNumber = pagedResultSet.CurrentPageNumber - 1;
 
-            pagedResultSet = await GetCachedData(pagedDataRequest);
+            pagedResultSet = await GetItems(pagedDataRequest);
 
             if (pagedResultSet != null)
             {
@@ -119,7 +114,7 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
 
             pagedDataRequest.Paging.PageNumber = 1;
 
-            pagedResultSet = await GetCachedData(pagedDataRequest);
+            pagedResultSet = await GetItems(pagedDataRequest);
 
             if (pagedResultSet != null)
             {
@@ -139,7 +134,7 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             pagedDataRequest.FilterSet = ColumnFilters;
             pagedDataRequest.Paging.PageNumber = 1;
 
-            pagedResultSet = await GetCachedData(pagedDataRequest);
+            pagedResultSet = await GetItems(pagedDataRequest);
 
             if (pagedResultSet != null && pagedResultSet.Data.Count > 0)
             {
@@ -154,17 +149,9 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             IsLoading = false;
             StateHasChanged();
         }
-
         #endregion
-        private async Task<PagedResultSet<List<T>>> GetCachedData(PagedDataRequest pagedDataRequest)
-        {
-           
-                pagedResultSet = await GetItems(pagedDataRequest);
-             
-            return pagedResultSet;
-        }
-
-        public async Task TaskClearFilters()
+      
+        public async Task TaskClearFilters() 
         {
             foreach (var filter in ColumnFilters)
             {
@@ -193,17 +180,14 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             return new PagedResultSet<List<T>>();
         }
 
-        public virtual Task HandleLinkAction<T>(string columnName, object dataItem)
+        public  Task HandleLinkAction<T>(string columnName, object dataItem)
         {
             //the check below is because appointments still points to bi mart.
             //when all data is in app-dev, we wont need to double check the column name
 
-            var itemID = dataItem.GetType().GetProperty("ClientID")?.GetValue(dataItem);
+            var itemID = dataItem.GetType().GetProperty("Id")?.GetValue(dataItem);
 
-            if (itemID == null)
-            {
-                itemID = dataItem.GetType().GetProperty("PatientID")?.GetValue(dataItem);
-            }
+           
 
             NavigationManager.NavigateTo("/patients/" + itemID.ToString());
 
@@ -212,25 +196,6 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
 
    
 
-        private static string GetSequenceIds(PagedResultSet<List<T>> pagedResultSet)
-        {
-            //get sequenceids or patient ids
-            var sequenceIDs = new StringBuilder();
-
-            foreach (var item in pagedResultSet.Data)
-            {
-                var itemProp = item.GetType().GetProperty("SequenceID");
-
-                if (itemProp == null)
-                    itemProp = item.GetType().GetProperty("PatientID");
-
-                var propValue = itemProp.GetValue(item, null);
-
-                if (propValue != null)
-                    sequenceIDs.Append(propValue.ToString() + ",");
-            }
-
-            return sequenceIDs.ToString();
-        }
+       
     }
 }

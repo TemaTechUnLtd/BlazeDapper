@@ -1,4 +1,4 @@
-﻿namespace BlazeDapper.MODELS.DTO
+﻿namespace BlazeDapper.MODELS
 {
     public class OrderItem
     {

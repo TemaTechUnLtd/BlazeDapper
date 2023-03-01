@@ -1,7 +1,7 @@
 ﻿using BlazeDapper.MODELS;
 using BlazeDapper.MODELS.DAL;
 
-namespace BlazeDapper.CORE.Utilities
+namespace BlazeDapper.MODELS.Utilities
 {
     public static class FilterColumns
     {

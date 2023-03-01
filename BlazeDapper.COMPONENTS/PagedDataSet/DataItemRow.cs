@@ -23,7 +23,7 @@ namespace BlazeDapper.COMPONENTS.PagedDataSet
             await TopPage.HandleLinkAction<T>(columnName, dataItem);
         }
 
-        private object GetSurplasDataValue(string propertyName)
+        private object? GetSurplasDataValue(string propertyName)
         {
             return dataItem.GetType().GetProperty(propertyName)?.GetValue(dataItem, null);
         }

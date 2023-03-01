@@ -1,5 +1,81 @@
-﻿<h3>DataItemRow</h3>
+﻿@using HeroIcons.Blazor.Outline
+@typeparam T
 
-@code {
+<tr>
+    @if (TopPage.SurplussData.Any())
+    {
+        <td>
 
+            <a
+           title="View extra info"
+           @onclick="() => ToggleSurplusRow()"
+           @onclick:preventDefault>
+                <InformationCircleIcon style="height:20px;" />
+            </a>
+
+        </td>
+    }
+
+    @foreach (var columnFilter in TopPage.ColumnFilters)
+    {
+        <td>
+            <div>
+                @{
+                    var columnValue = dataItem.GetType().GetProperty(columnFilter.ColumnName)?.GetValue(dataItem, null);
+                }
+                @if (columnValue != null)
+                {
+
+                    <div>
+                        @if (columnFilter.HasLinkAction)
+                        {
+                            <a
+                               title="@String.Format("View {0} info",columnFilter.DisplayName)"
+                               @onclick="() => LinkAction(columnFilter.ColumnName)"
+                               @onclick:preventDefault> 
+                               @(columnValue) 
+                           </a>
+                        }
+                        else
+                        {
+                            if (columnFilter.ColumnType == TypeCode.DateTime && (DateTime)columnValue == DateTime.MinValue)
+                            {
+                                <span></span>
+                            }
+                            else
+                            {
+                                <span>@(columnValue)</span>
+                            }
+                        }
+                    </div>
+
+                    <div class="ml-3">
+                        @if ((columnFilter.ColumnType == TypeCode.String || columnFilter.ColumnType == TypeCode.Int32)
+                       && !String.IsNullOrWhiteSpace(columnValue.ToString()))
+                        {
+                            <a 
+                               @onclick="() => SetFilter(columnFilter.ColumnName, columnValue.ToString())"
+                               @onclick:preventDefault
+                               title="@String.Format("Filter by this {0}",columnFilter.DisplayName)">
+                                <EyeIcon style="height:20px;" />
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </td>
+    }
+    <td></td>
+</tr>
+
+@if (TopPage.SurplussData.Any())
+{
+    <tr hidden=@HideSurplusRow>
+        <td colspan="@(TopPage.ColumnFilters.Count + 1)">
+            @foreach (var item in TopPage.SurplussData)
+            {
+                <p>  @item.DisplayName : @GetSurplasDataValue(item.PropertyName) </p>
+            }
+        </td>
+    </tr>
 }
