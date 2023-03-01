@@ -1,9 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using System.Data;
-
-namespace BlazeDapper.DAL
+﻿namespace BlazeDapper.DAL
 {
+    using Microsoft.Data.SqlClient;
+    using Microsoft.Extensions.Configuration;
+    using System.Data;
+
     public class TheDataContext
     {
         private readonly IConfiguration _configuration;
@@ -15,9 +15,9 @@ namespace BlazeDapper.DAL
             _connectionString = _configuration.GetConnectionString("TheConnection");
         }
 
-        public IDbConnection CreateConnection(string connectionString)
+        public IDbConnection CreateConnection()
         {
-            return new SqlConnection(connectionString);
+            return new SqlConnection(_connectionString);
         }
     }
 }

@@ -1,42 +1,29 @@
-﻿using BlazeDapper.DAL.Utilities;
-using BlazeDapper.MODELS;
-using BlazeDapper.MODELS.DAL;
-using Microsoft.Extensions.Configuration;
-
-namespace BlazeDapper.DAL
+﻿namespace BlazeDapper.DAL
 {
+    using BlazeDapper.DAL.Utilities;
+    using BlazeDapper.MODELS;
+    using BlazeDapper.MODELS.DAL;
+
     public class TheRepository : ITheRepository
     {
         private readonly TheDataContext _context;
-        private readonly IConfiguration _configuration;
 
-        public TheRepository(TheDataContext context, IConfiguration configuration)
+        public TheRepository(TheDataContext context)
         {
             _context = context;
-            _configuration = configuration;
         }
 
         public async Task<PagedResultSet<List<Customer>>> GetCustomers(PagedDataRequest request)
-        {
-            //remove duplication
-            try
-            {
- var query = QueryGenerator.GetQuery<Customer>(request);
+        {           
+                var query = QueryGenerator.GetQuery<Customer>(request);
 
-            Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
+                Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
-            using (var connection = _context.CreateConnection(_configuration.GetConnectionString("BlazeConnection")))
-            {
-                var itemCollection = await QueryRunner.GetPagedDataAsync<Customer>(query, connection, queryParams, request.Paging);
-                return itemCollection;
-            }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-           
+                using (var connection = _context.CreateConnection())
+                {
+                    var itemCollection = await QueryRunner.GetPagedDataAsync<Customer>(query, connection, queryParams, request.Paging);
+                    return itemCollection;
+                }
         }
 
         public async Task<PagedResultSet<List<OrderItem>>> GetOrderItems(PagedDataRequest request)
@@ -45,7 +32,7 @@ namespace BlazeDapper.DAL
 
             Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
-            using (var connection = _context.CreateConnection(_configuration.GetConnectionString("BlazeConnection")))
+            using (var connection = _context.CreateConnection())
             {
                 var itemCollection = await QueryRunner.GetPagedDataAsync<OrderItem>(query, connection, queryParams, request.Paging);
                 return itemCollection;
@@ -58,7 +45,7 @@ namespace BlazeDapper.DAL
 
             Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
-            using (var connection = _context.CreateConnection(_configuration.GetConnectionString("BlazeConnection")))
+            using (var connection = _context.CreateConnection())
             {
                 var itemCollection = await QueryRunner.GetPagedDataAsync<Order>(query, connection, queryParams, request.Paging);
                 return itemCollection;
@@ -71,7 +58,7 @@ namespace BlazeDapper.DAL
 
             Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
-            using (var connection = _context.CreateConnection(_configuration.GetConnectionString("BlazeConnection")))
+            using (var connection = _context.CreateConnection())
             {
                 var itemCollection = await QueryRunner.GetPagedDataAsync<Product>(query, connection, queryParams, request.Paging);
                 return itemCollection;
@@ -84,7 +71,7 @@ namespace BlazeDapper.DAL
 
             Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
-            using (var connection = _context.CreateConnection(_configuration.GetConnectionString("BlazeConnection")))
+            using (var connection = _context.CreateConnection())
             {
                 var itemCollection = await QueryRunner.GetPagedDataAsync<Supplier>(query, connection, queryParams, request.Paging);
                 return itemCollection;
