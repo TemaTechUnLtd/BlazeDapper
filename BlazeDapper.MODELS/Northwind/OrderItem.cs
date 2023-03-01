@@ -1,8 +1,13 @@
-﻿namespace BlazeDapper.MODELS
+﻿using BlazeDapper.MODELS.Utilities;
+
+namespace BlazeDapper.MODELS
 {
     public class OrderItem
     {
-     public int Id { get; set; }
+        [LinkAction]
+        [Display("Item Id", DisplayType.Table)]
+        [OrderColumn(Descending: false)]
+        public int Id { get; set; }
      public int OrderId { get; set; }
      public int ProductId { get; set; }
      public decimal UnitPrice { get; set; }

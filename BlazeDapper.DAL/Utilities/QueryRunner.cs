@@ -1,25 +1,26 @@
-﻿using BlazeDapper.MODELS.DAL;
-using Dapper;
-using System.Data;
-
-namespace BlazeDapper.DAL.Utilities
+﻿namespace BlazeDapper.DAL.Utilities
 {
+    using BlazeDapper.MODELS.DAL;
+    using Dapper;
+
     public static class QueryRunner
     {
-
-        
-
-
-        internal static async Task<PagedResultSet<List<T>>> GetPagedDataAsync<T>(string query, IDbConnection connection, Dictionary<string, object> queryParams, PagingRequest paging)
+        internal static async Task<PagedResultSet<List<T>>> GetEntityCollection<T>(PagedDataRequest request, TheDataContext context)
         {
-            var reader = await connection.QueryMultipleAsync(query, new DynamicParameters(queryParams));
+            var query = QueryGenerator.GetQuery<T>(request);
 
-            int totalRecords = reader.Read<int>().FirstOrDefault();
-            List<T> dataCollection = reader.Read<T>().ToList();
+            Dictionary<string, object> queryParams = QueryGenerator.GetQueryParams(request);
 
-            var resultSet = new PagedResultSet<List<T>>(dataCollection, totalRecords, paging.PageNumber, paging.PageSize);
+            using (var connection = context.CreateConnection())
+            {
+                var reader = await connection.QueryMultipleAsync(query, new DynamicParameters(queryParams));
 
-            return resultSet;
-        }
+                int totalRecords = reader.Read<int>().FirstOrDefault();
+                List<T> dataCollection = reader.Read<T>().ToList();
+                var itemCollection = new PagedResultSet<List<T>>(dataCollection, totalRecords, request.Paging.PageNumber, request.Paging.PageSize);
+                               
+                return itemCollection;
+            }
+        }       
     }
 }

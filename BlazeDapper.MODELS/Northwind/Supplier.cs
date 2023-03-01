@@ -1,7 +1,12 @@
-﻿namespace BlazeDapper.MODELS
+﻿using BlazeDapper.MODELS.Utilities;
+
+namespace BlazeDapper.MODELS
 {
     public class Supplier
     {
+        [LinkAction]
+        [Display("Item Id", DisplayType.Table)]
+        [OrderColumn(Descending: false)] 
         public int Id { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
