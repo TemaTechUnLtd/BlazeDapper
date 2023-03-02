@@ -24,15 +24,13 @@
                 }
                 @if (columnValue != null)
                 {
-
                     <div>
                         @if (columnFilter.HasLinkAction)
                         {
-                            <a
-                               title="@String.Format("View {0} info",columnFilter.DisplayName)"
+                            <a title="@String.Format("View info for this {0}",columnFilter.DisplayName)"
                                @onclick="() => LinkAction(columnFilter.ColumnName)"
                                @onclick:preventDefault> 
-                               @(columnValue) 
+                                @(columnValue) 
                            </a>
                         }
                         else
@@ -43,12 +41,16 @@
                             }
                             else
                             {
+                                @if (columnFilter.ColumnType == TypeCode.Decimal)
+                                {
+                                    <span>£</span>
+                                }
                                 <span>@(columnValue)</span>
                             }
                         }
                     </div>
 
-                    <div class="ml-3">
+                    <div >
                         @if ((columnFilter.ColumnType == TypeCode.String || columnFilter.ColumnType == TypeCode.Int32)
                        && !String.IsNullOrWhiteSpace(columnValue.ToString()))
                         {

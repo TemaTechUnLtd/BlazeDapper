@@ -3,8 +3,7 @@
 namespace BlazeDapper.MODELS
 {
     public class Customer
-    {
-        [LinkAction]
+    {        
         [Display("Item Id", DisplayType.Table)]
         [OrderColumn(Descending: false)]
         public int Id { get; set; }

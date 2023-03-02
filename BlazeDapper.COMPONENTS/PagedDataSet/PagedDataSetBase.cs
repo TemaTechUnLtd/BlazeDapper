@@ -56,8 +56,6 @@
             IsLoading = false;
         }
 
-      
-
         public async Task GetNextPage()
         {
             IsLoading = true;
@@ -178,26 +176,28 @@
         }
 
         protected abstract  Task<PagedResultSet<List<T>>> GetItems(PagedDataRequest pagedDataRequest);
-        //{
-        //    return new PagedResultSet<List<T>>();
-        //}
 
         public  Task HandleLinkAction<T>(string columnName, object dataItem)
         {
-            //the check below is because appointments still points to bi mart.
-            //when all data is in app-dev, we wont need to double check the column name
-
             var itemID = dataItem.GetType().GetProperty("Id")?.GetValue(dataItem);
 
-           
-
-            NavigationManager.NavigateTo("/patients/" + itemID.ToString());
+            switch(columnName)                 
+            {
+                case "SupplierId":
+                    NavigationManager.NavigateTo("/suppliers/" + itemID.ToString());
+                    break;
+                case "OrderId":
+                    NavigationManager.NavigateTo("/orders/" + itemID.ToString());
+                    break;
+                case "ProductId":
+                    NavigationManager.NavigateTo("/products/" + itemID.ToString());
+                    break;
+                case "CustomerId":
+                    NavigationManager.NavigateTo("/customers/" + itemID.ToString());
+                    break;
+            }
 
             return Task.CompletedTask;
         }
-
-   
-
-       
     }
 }

@@ -1,4 +1,3 @@
-using BlazeDapper.CORE;
 using BlazeDapper.DAL;
 using BlazeDapper.Web.Data;
 
@@ -8,8 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-
-builder.Services.AddSingleton<ITheService, TheService>();
 
 builder.Services.AddSingleton<TheDataContext>();
 builder.Services.AddSingleton<ITheRepository, TheRepository>();

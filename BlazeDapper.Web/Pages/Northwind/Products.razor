@@ -3,7 +3,7 @@
 
 @using BlazeDapper.COMPONENTS.PagedDataSet;
 @using BlazeDapper.COMPONENTS.Shared;
-@using BlazeDapper.CORE;
+@using BlazeDapper.DAL;
 @using BlazeDapper.MODELS.DAL;
 @using BlazeDapper.MODELS;
 @using Microsoft.AspNetCore.Components;
@@ -19,11 +19,11 @@
 @code {
 
     [Inject]
-    protected ITheService theService { get; set; }
+    protected ITheRepository theRepository { get; set; }
 
     protected override async Task<PagedResultSet<List<Product>>> GetItems(PagedDataRequest pagedDataRequest)
     {
-        return await theService.GetProducts(pagedDataRequest);
+        return await theRepository.GetProducts(pagedDataRequest);
     }
 
 }
