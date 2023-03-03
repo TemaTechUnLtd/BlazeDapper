@@ -1,11 +1,6 @@
 ﻿@typeparam T
 
-<tr>
-    @if (TopPage.SurplussData.Any())
-    {
-        <th></th>
-    }
-
+<tr>   
     @foreach (var columnHeader in TopPage.ColumnFilters)
     {
         <DataHeaderItem ColumnHeader="@columnHeader" T="T" />

@@ -4,22 +4,22 @@ namespace BlazeDapper.MODELS
 {
     public class OrderItem
     {
-        [Display("Item Id", DisplayType.Table)]
+        [Display("Item Id")]
         [OrderColumn(Descending: false)]
         public int Id { get; set; }
 
         [LinkAction]
-        [Display("Order Id", DisplayType.Table)]
+        [Display("Order Id")]
         public int OrderId { get; set; }
 
         [LinkAction]
-        [Display("Product Id", DisplayType.Table)]
+        [Display("Product Id")]
         public int ProductId { get; set; }
 
-        [Display("Unit Price", DisplayType.Table)]
+        [Display("Unit Price")]
         public decimal UnitPrice { get; set; }
 
-        [Display("Quantity", DisplayType.Table)]
+        [Display("Quantity")]
         public int Quantity { get; set; }
     }
 }

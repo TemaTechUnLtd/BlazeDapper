@@ -4,29 +4,29 @@ namespace BlazeDapper.MODELS
 {
     public class Supplier
     {
-        [Display("Item Id", DisplayType.Table)]
+        [Display("Item Id")]
         [OrderColumn(Descending: false)] 
         public int Id { get; set; }
 
-        [Display("Company Name", DisplayType.Table)]
+        [Display("Company Name")]
         public string CompanyName { get; set; }
 
-        [Display("Contact Name", DisplayType.Table)]
+        [Display("Contact Name")]
         public string ContactName { get; set; }
 
-        [Display("Contact Title", DisplayType.Table)]
+        [Display("Contact Title")]
         public string ContactTitle { get; set; }
 
-        [Display("City", DisplayType.Table)]
+        [Display("City")]
         public string City { get; set; }
 
-        [Display("Country", DisplayType.Table)]
+        [Display("Country")]
         public string Country { get; set; }
 
-        [Display("Phone", DisplayType.Table)]
+        [Display("Phone")]
         public string Phone { get; set; }
 
-        [Display("Fax", DisplayType.Table)]
+        [Display("Fax")]
         public string Fax { get; set; }
     }
 }

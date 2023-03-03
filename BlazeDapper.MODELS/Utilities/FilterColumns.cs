@@ -1,11 +1,10 @@
-﻿using BlazeDapper.MODELS;
-using BlazeDapper.MODELS.DAL;
+﻿using BlazeDapper.MODELS.DAL;
 
 namespace BlazeDapper.MODELS.Utilities
 {
     public static class FilterColumns
     {
-        public static void GetColumnHeadings<T>(PagingRequest pagingRequest, List<QueryFilter> columnHeaders, List<SurplusDataItem> surplusData)
+        public static void GetColumnHeadings<T>(PagingRequest pagingRequest, List<QueryFilter> columnHeaders)
         {
             var propertiesWithAttribute = typeof(T).GetProperties()
                 // use projection to get properties with their attributes - 
@@ -20,17 +19,9 @@ namespace BlazeDapper.MODELS.Utilities
                 // filter only properties with attributes
                 .Where(x => x.DisplayAttribute != null && x.DisplayAttribute.GetType().Name == "Display")
                .ToList();
+           
 
-            foreach (var item in propertiesWithAttribute.Where(p => p.DisplayAttribute.GetDisplayType() == DisplayType.Surplus).ToList())
-            {
-                surplusData.Add(new SurplusDataItem
-                {
-                    PropertyName = item.PropertyInfo.Name,
-                    DisplayName = item.DisplayAttribute.GetName()
-                });
-            }
-
-            foreach (var item in propertiesWithAttribute.Where(p => p.DisplayAttribute.GetDisplayType() == DisplayType.Table).ToList())
+            foreach (var item in propertiesWithAttribute)
             {
                 var queryFilter = new QueryFilter()
                 {

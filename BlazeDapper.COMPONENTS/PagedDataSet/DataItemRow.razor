@@ -1,20 +1,6 @@
 ﻿@typeparam T
 
-<tr>
-    @if (TopPage.SurplussData.Any())
-    {
-        <td>
-
-            <a
-           title="View extra info"
-           @onclick="() => ToggleSurplusRow()"
-           @onclick:preventDefault>
-                <InformationCircleIcon style="height:20px;" />
-            </a>
-
-        </td>
-    }
-
+<tr>  
     @foreach (var columnFilter in TopPage.ColumnFilters)
     {
         <td>
@@ -68,15 +54,3 @@
     }
     <td></td>
 </tr>
-
-@if (TopPage.SurplussData.Any())
-{
-    <tr hidden=@HideSurplusRow>
-        <td colspan="@(TopPage.ColumnFilters.Count + 1)">
-            @foreach (var item in TopPage.SurplussData)
-            {
-                <p>  @item.DisplayName : @GetSurplasDataValue(item.PropertyName) </p>
-            }
-        </td>
-    </tr>
-}

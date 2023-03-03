@@ -4,23 +4,23 @@ namespace BlazeDapper.MODELS
 {
     public class Customer
     {        
-        [Display("Item Id", DisplayType.Table)]
+        [Display("Item Id")]
         [OrderColumn(Descending: false)]
         public int Id { get; set; }
 
-        [Display("First Name", DisplayType.Table)]
+        [Display("First Name")]
         public string FirstName { get; set; }
 
-        [Display("Last Name", DisplayType.Table)]
+        [Display("Last Name")]
         public string LastName { get; set; }
 
-        [Display("City", DisplayType.Table)]
+        [Display("City")]
         public string City { get; set; }
 
-        [Display("Country", DisplayType.Table)]
+        [Display("Country")]
         public string Country { get; set; }
 
-        [Display("Phone", DisplayType.Table)]
+        [Display("Phone")]
         public string Phone { get; set; }
     }
 }

@@ -94,7 +94,6 @@ namespace BlazeDapper.DAL.Utilities
                         searchTermINdex++;
                     }
                 }
-
             }
             return queryParams;
         }

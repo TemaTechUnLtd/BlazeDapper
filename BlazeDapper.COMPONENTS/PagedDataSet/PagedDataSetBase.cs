@@ -22,7 +22,6 @@
         public string Message { get; set; }
 
         public List<QueryFilter> ColumnFilters { get; set; } = new List<QueryFilter>();
-        public List<SurplusDataItem> SurplussData { get; set; } = new List<SurplusDataItem>();
 
         public bool IsLoading { get; set; }
 
@@ -32,7 +31,7 @@
         {
             PagingRequest pagingRequest = new();
 
-            FilterColumns.GetColumnHeadings<T>(pagingRequest, ColumnFilters, SurplussData);
+            FilterColumns.GetColumnHeadings<T>(pagingRequest, ColumnFilters);
 
             pagedDataRequest = new PagedDataRequest { FilterSet = ColumnFilters, Paging = pagingRequest };
             IsLoading = true;
