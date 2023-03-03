@@ -159,6 +159,8 @@
                 {
                     filter.SearchTerms[i] = "";
                 }
+
+                filter.BoolValue = BoolValue.Select;
             }
             StateHasChanged();
         }

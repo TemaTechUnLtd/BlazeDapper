@@ -38,7 +38,8 @@ namespace BlazeDapper.MODELS.Utilities
                     ColumnType = Type.GetTypeCode(NullPropertyCheck(item.PropertyInfo.PropertyType)),
                     SearchTerms = new List<string> { "" },
                     DisplayName = item.DisplayAttribute != null ? item.DisplayAttribute.GetName() : item.PropertyInfo.Name,
-                    HasLinkAction = item.LinkActionAttribute != null
+                    HasLinkAction = item.LinkActionAttribute != null,
+                    BoolValue = BoolValue.Select
                 };
 
                 columnHeaders.Add(queryFilter);

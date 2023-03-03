@@ -75,6 +75,10 @@ namespace BlazeDapper.DAL.Utilities
                             break;
                     }
                 }
+                else if (filter.ColumnType == TypeCode.Boolean && filter.BoolValue != BoolValue.Select)
+                {
+                    queryParams.Add("@" + filter.ColumnName, filter.BoolValue);
+                }
                 else if (filter.SearchTerms == null || !filter.SearchTerms.Where(s => !string.IsNullOrWhiteSpace(s)).Any())
                 {
                     continue;
@@ -90,6 +94,7 @@ namespace BlazeDapper.DAL.Utilities
                         searchTermINdex++;
                     }
                 }
+
             }
             return queryParams;
         }
@@ -134,10 +139,6 @@ namespace BlazeDapper.DAL.Utilities
                                     sb.Append(columnName + " like '%' + @" + columnName + (searchTermIndex > 0 ? searchTermIndex.ToString() : "") + " + '%' ");
                                     break;
 
-                                case TypeCode.Boolean:
-                                    sb.Append(columnName + " = @" + columnName + " ");
-                                    break;
-
                                 case TypeCode.Int32:
                                     sb.Append(columnName + " = @" + columnName + " ");
                                     break;
@@ -147,6 +148,13 @@ namespace BlazeDapper.DAL.Utilities
 
                         sb.Append(" ) ");
                     }
+                }
+
+                if (filter.ColumnType == TypeCode.Boolean && filter.BoolValue != BoolValue.Select)
+                {
+                    if (sb.Length != stringLength)
+                        sb.Append(" AND ");
+                    sb.Append(columnName + " = @" + columnName + " ");
                 }
 
                 if (filter.ColumnType == TypeCode.DateTime && (filter.FromDate != null || filter.ToDate != null))
@@ -226,7 +234,7 @@ namespace BlazeDapper.DAL.Utilities
                 case nameof(Supplier):
                     tableName = SQLConstants.SupplierTable;
                     break;
-              
+
                 default:
                     throw new ArgumentNullException(nameof(moduleType));
             }

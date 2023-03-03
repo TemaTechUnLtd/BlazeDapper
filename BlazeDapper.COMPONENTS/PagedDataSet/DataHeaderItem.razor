@@ -1,5 +1,7 @@
-﻿@typeparam T
+﻿@using BlazeDapper.MODELS.DAL;
+@using Microsoft.AspNetCore.Components.Forms;
 
+@typeparam T
 
 <th>
     <div>
@@ -26,9 +28,7 @@
             </div>
         </div>
 
-
         <div>
-
             @switch (ColumnHeader.ColumnType)
             {
                 case TypeCode.String:
@@ -50,9 +50,12 @@
                     </div>
                     break;
                 case TypeCode.Boolean:
-                    <div class="flex flex-col">
-                        <input @bind="@ColumnHeader.IsTrue" type="checkbox"  class="form-control" >
-                    </div>
+                    <InputSelect @bind-Value="@ColumnHeader.BoolValue" class="form-control">
+                        <option value="@BoolValue.Select">@BoolValue.Select</option>
+                        <option value="@BoolValue.True">@BoolValue.True</option>
+                        <option value="@BoolValue.False">@BoolValue.False</option>
+
+                    </InputSelect>
                     break;
                 default:
                     break;

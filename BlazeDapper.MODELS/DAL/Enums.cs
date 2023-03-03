@@ -8,4 +8,11 @@
         After = 4,
         Between = 5
     }
+
+    public enum BoolValue
+    {
+        Select = -1,
+        True = 1,
+        False = 0,
+    }
 }

@@ -10,7 +10,6 @@
         public DateTime? ToDate { get; set; }
         public FilterType FilterType { get; set; }
         public bool HasLinkAction { get; set; }
-
-        public bool? IsTrue { get; set; }
+        public BoolValue BoolValue { get; set; }
     }
 }
