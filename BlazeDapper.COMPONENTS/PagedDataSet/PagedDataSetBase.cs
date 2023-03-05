@@ -185,16 +185,16 @@
             switch(columnName)                 
             {
                 case "SupplierId":
-                    NavigationManager.NavigateTo("/suppliers/" + itemID.ToString());
+                    NavigationManager.NavigateTo("/suppliers/" + itemID);
                     break;
                 case "OrderId":
-                    NavigationManager.NavigateTo("/orders/" + itemID.ToString());
+                    NavigationManager.NavigateTo("/orders/" + itemID);
                     break;
                 case "ProductId":
-                    NavigationManager.NavigateTo("/products/" + itemID.ToString());
+                    NavigationManager.NavigateTo("/products/" + itemID);
                     break;
                 case "CustomerId":
-                    NavigationManager.NavigateTo("/customers/" + itemID.ToString());
+                    NavigationManager.NavigateTo("/customers/" + itemID);
                     break;
             }
 

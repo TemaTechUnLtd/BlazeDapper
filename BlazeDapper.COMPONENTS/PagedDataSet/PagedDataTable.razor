@@ -1,7 +1,7 @@
 ﻿@using BlazeDapper.MODELS.DAL;
 @typeparam T
 
-<table class="table">
+<table class="table table-sm">
     <thead class="table-dark">
         <DataHeaderRow T="T" />
     </thead>
@@ -20,8 +20,6 @@
         <caption><Paging T="T" /></caption>
     }
 </table>
-
-
 
 @if (pagedTableData != null && pagedTableData.Data == null)
 {

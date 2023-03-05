@@ -1,6 +1,6 @@
 ﻿@typeparam T
 
-<tr>  
+<tr>
     @foreach (var columnFilter in TopPage.ColumnFilters)
     {
         <td>
@@ -13,11 +13,13 @@
                     <div>
                         @if (columnFilter.HasLinkAction)
                         {
-                            <a title="@String.Format("View info for this {0}",columnFilter.DisplayName)"
-                               @onclick="() => LinkAction(columnFilter.ColumnName)"
-                               @onclick:preventDefault> 
-                                @(columnValue) 
-                           </a>
+                            <a class="link-primary fw-bold text-decoration-none"
+                   style="cursor:pointer;"
+                   title="@String.Format("View info for this {0}",columnFilter.DisplayName)"
+                   @onclick="() => LinkAction(columnFilter.ColumnName)"
+                   @onclick:preventDefault>
+                                @(columnValue)
+                            </a>
                         }
                         else
                         {
@@ -25,25 +27,35 @@
                             {
                                 <span></span>
                             }
+
+                            @if (columnFilter.ColumnType == TypeCode.Decimal)
+                            {
+                                <span>£</span>
+                            }
+
+                            if (columnFilter.ColumnType == TypeCode.DateTime && (DateTime)columnValue != DateTime.MinValue)
+                            {
+                                var theDate = (DateTime)columnValue;
+                                <span>@theDate.ToShortDateString()</span>
+                            }
                             else
                             {
-                                @if (columnFilter.ColumnType == TypeCode.Decimal)
-                                {
-                                    <span>£</span>
-                                }
+
                                 <span>@(columnValue)</span>
                             }
                         }
+
                     </div>
 
-                    <div >
+                    <div>
                         @if ((columnFilter.ColumnType == TypeCode.String || columnFilter.ColumnType == TypeCode.Int32)
                        && !String.IsNullOrWhiteSpace(columnValue.ToString()))
                         {
-                            <a 
-                               @onclick="() => SetFilter(columnFilter.ColumnName, columnValue.ToString())"
-                               @onclick:preventDefault
-                               title="@String.Format("Filter by this {0}",columnFilter.DisplayName)">
+                            <a class="link-primary fw-bold text-decoration-none"
+                   style="cursor:pointer;"
+                   @onclick="() => SetFilter(columnFilter.ColumnName, columnValue.ToString())"
+                   @onclick:preventDefault
+                   title="@String.Format("Filter by this {0}",columnFilter.DisplayName)">
                                 <EyeIcon style="height:20px;" />
                             </a>
                         }

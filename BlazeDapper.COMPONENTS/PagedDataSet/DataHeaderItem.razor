@@ -9,18 +9,18 @@
             <span>@ColumnHeader.DisplayName</span>
 
             <div>
-                <a href="#" @onclick='(()=>GetSortedData(ColumnHeader.ColumnName))'
+                <a href="#" style="cursor:pointer;" @onclick='(()=>GetSortedData(ColumnHeader.ColumnName))'
                    title="Sort by @ColumnHeader.DisplayName"
                    @onclick:preventDefault>
                     <SwitchVerticalIcon style="height:20px;"  />
                 </a>
                 @if (ColumnHeader.ColumnType != TypeCode.DateTime)
                 {
-                    <a href="#" @onclick:preventDefault @onclick="AddSearchTerm"
+                    <a href="#" style="cursor:pointer;" @onclick:preventDefault @onclick="AddSearchTerm"
                    title="Add Search Term">
                         <PlusCircleIcon style="height:20px;" />
                     </a>
-                    <a href="#" @onclick:preventDefault @onclick="RemoveSearchTerm"
+                    <a href="#" style="cursor:pointer;" @onclick:preventDefault @onclick="RemoveSearchTerm"
                    title="Remove Search Term">
                         <MinusCircleIcon style="height:20px;"/>
                     </a>
