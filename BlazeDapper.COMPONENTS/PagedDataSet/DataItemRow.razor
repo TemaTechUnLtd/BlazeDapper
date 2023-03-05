@@ -14,10 +14,10 @@
                         @if (columnFilter.HasLinkAction)
                         {
                             <a class="link-primary fw-bold text-decoration-none"
-                   style="cursor:pointer;"
-                   title="@String.Format("View info for this {0}",columnFilter.DisplayName)"
-                   @onclick="() => LinkAction(columnFilter.ColumnName)"
-                   @onclick:preventDefault>
+                               style="cursor:pointer;"
+                               title="@String.Format("View info for this {0}",columnFilter.DisplayName)"
+                               @onclick="() => LinkAction(columnFilter.ColumnName)"
+                               @onclick:preventDefault>
                                 @(columnValue)
                             </a>
                         }
@@ -52,10 +52,10 @@
                        && !String.IsNullOrWhiteSpace(columnValue.ToString()))
                         {
                             <a class="link-primary fw-bold text-decoration-none"
-                   style="cursor:pointer;"
-                   @onclick="() => SetFilter(columnFilter.ColumnName, columnValue.ToString())"
-                   @onclick:preventDefault
-                   title="@String.Format("Filter by this {0}",columnFilter.DisplayName)">
+                               style="cursor:pointer;"
+                               @onclick="() => SetFilter(columnFilter.ColumnName, columnValue.ToString())"
+                               @onclick:preventDefault
+                               title="@String.Format("Filter by this {0}",columnFilter.DisplayName)">
                                 <EyeIcon style="height:20px;" />
                             </a>
                         }
