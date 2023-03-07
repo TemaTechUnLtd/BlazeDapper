@@ -182,6 +182,7 @@
         {
             var itemID = dataItem.GetType().GetProperty("Id")?.GetValue(dataItem);
 
+            //this should sit in the calling pages' logic....maybe
             switch(columnName)                 
             {
                 case "SupplierId":
