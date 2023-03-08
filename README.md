@@ -10,10 +10,10 @@ The code is presented as is. I may make code changes periodically based on feedb
 
 The structure of the code is very basic and consists of the following projects:
 
-Web - standard BlazorServer project
-Components - Razor library with generic datatable component and it's child components
-Models - Class library containing entities, utility and transport classes
-DAL - Class library housing data access to SQL server via dapper. Also includes the Querygenerator
+* **Web** standard BlazorServer project
+* **Components** Razor library with generic datatable component and it's child components
+* **Models** Class library containing entities, utility and transport classes
+* **DAL** Class library housing data access to SQL server via dapper. Also includes the Querygenerator
 
 Setup:
 1. Pull/fork the repo
