@@ -19,6 +19,7 @@ Setup:
 1. Pull/fork the repo
 2. Run the scripts in the BlazeDapper.DAL\DBSetup folder to setup your db
 3. Update the connection string in BlazeDapper.Web\appsettings.json
+4. Update BlazeDapper.DAL\SQLConstants to match your database name (I might move this to appsetting.json...maybe)
 4. Put a breakpoint somewhere (BlazeDapper.COMPONENTS\PagedDataSet\OnInitializedAsync would be a good shout) and lets see what we can learn/improve on with this code.
 
 If you find this solution of use, please consider [buying me a coffee](https://www.buymeacoffee.com/iKnowNothing) or better yet, [hire me](https://www.linkedin.com/in/david-apomah-87043025/ "David Apomah on LinkedIn") for any full stack **Microsoft** cloud projects you may have coming up.
