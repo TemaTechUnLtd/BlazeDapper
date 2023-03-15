@@ -59,40 +59,57 @@ namespace BlazeDapper.DAL.Utilities
 
             foreach (var filter in filters)
             {
-                if (filter.ColumnType == TypeCode.DateTime && (filter.FromDate != null || filter.ToDate != null))
+                switch (filter.ColumnType)
                 {
-                    switch (filter.FilterType)
-                    {
-                        case FilterType.Between:
-                            queryParams.Add("@" + filter.ColumnName + "1", filter.FromDate);
-                            queryParams.Add("@" + filter.ColumnName + "2", filter.ToDate);
-                            break;
-                        case FilterType.After:
-                            queryParams.Add("@" + filter.ColumnName, filter.FromDate);
-                            break;
-                        case FilterType.Before:
-                            queryParams.Add("@" + filter.ColumnName, filter.ToDate);
-                            break;
-                    }
-                }
-                else if (filter.ColumnType == TypeCode.Boolean && filter.BoolValue != BoolValue.Select)
-                {
-                    queryParams.Add("@" + filter.ColumnName, filter.BoolValue);
-                }
-                else if (filter.SearchTerms == null || !filter.SearchTerms.Where(s => !string.IsNullOrWhiteSpace(s)).Any())
-                {
-                    continue;
-                }
-                else if (filter.ColumnType != TypeCode.DateTime)
-                {
-                    int searchTermINdex = 0;
+                    case TypeCode.DateTime:
+                        if (filter.FromDate != null || filter.ToDate != null)
+                        {
+                            switch (filter.FilterType)
+                            {
+                                case FilterType.Between:
+                                    queryParams.Add("@" + filter.ColumnName + "1", filter.FromDate);
+                                    queryParams.Add("@" + filter.ColumnName + "2", filter.ToDate);
+                                    break;
+                                case FilterType.After:
+                                    queryParams.Add("@" + filter.ColumnName, filter.FromDate);
+                                    break;
+                                case FilterType.Before:
+                                    queryParams.Add("@" + filter.ColumnName, filter.ToDate);
+                                    break;
+                            }
+                        }
+                        break;
 
-                    foreach (var searchTerm in filter.SearchTerms)
-                    {
-                        queryParams.Add("@" + filter.ColumnName + (searchTermINdex > 0 ? searchTermINdex.ToString() : ""), searchTerm);
+                    case TypeCode.Boolean:
+                        if (filter.BoolValue != BoolValue.Select)
+                        {
+                            queryParams.Add("@" + filter.ColumnName, filter.BoolValue);
+                        }
+                        break;
 
-                        searchTermINdex++;
-                    }
+                    case TypeCode.String:
+                    case TypeCode.Int32:
+                    case TypeCode.Decimal:
+                        if (filter.SearchTerms == null || !filter.SearchTerms.Where(s => !string.IsNullOrWhiteSpace(s)).Any())
+                        {
+                            continue;
+                        }
+                        else 
+                        {
+                            int searchTermINdex = 0;
+
+                            foreach (var searchTerm in filter.SearchTerms)
+                            {
+                                queryParams.Add("@" + filter.ColumnName + (searchTermINdex > 0 ? searchTermINdex.ToString() : ""), searchTerm);
+
+                                searchTermINdex++;
+                            }
+                        }
+                        break;
+
+                    default:
+                        throw new NotImplementedException(string.Format("The type {0}, has not been implemented", filter.ColumnType));
+
                 }
             }
             return queryParams;
@@ -112,57 +129,70 @@ namespace BlazeDapper.DAL.Utilities
             {
                 var columnName = filter.ColumnName;
 
-                if (filter.SearchTerms.Any())
+                switch (filter.ColumnType)
                 {
-                    var searchTerms = filter.SearchTerms.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
-
-                    if (searchTerms.Any())
-                    {
-                        if (sb.Length != stringLength)
-                            sb.Append(" AND ");
-
-                        int searchTermIndex = 0;
-
-                        sb.Append(" ( ");
-
-                        foreach (var searchTerm in searchTerms)
+                    case TypeCode.Boolean:
+                        if (filter.BoolValue != BoolValue.Select)
                         {
-                            if (searchTermIndex > 0)
-                            {
-                                sb.Append(" OR ");
-                            }
-
-                            switch (filter.ColumnType)
-                            {
-                                case TypeCode.String:
-                                    sb.Append(columnName + " like '%' + @" + columnName + (searchTermIndex > 0 ? searchTermIndex.ToString() : "") + " + '%' ");
-                                    break;
-
-                                case TypeCode.Int32:
-                                    sb.Append(columnName + " = @" + columnName + " ");
-                                    break;
-                            }
-                            searchTermIndex++;
+                            if (sb.Length != stringLength)
+                                sb.Append(" AND ");
+                            sb.Append(columnName + " = @" + columnName + " ");
                         }
+                        continue;
+                        
 
-                        sb.Append(" ) ");
-                    }
-                }
+                        case TypeCode.DateTime:
+                        if (filter.FromDate != null || filter.ToDate != null)
+                        {
+                            if (sb.Length != stringLength)
+                                sb.Append(" AND ");
 
-                if (filter.ColumnType == TypeCode.Boolean && filter.BoolValue != BoolValue.Select)
-                {
-                    if (sb.Length != stringLength)
-                        sb.Append(" AND ");
-                    sb.Append(columnName + " = @" + columnName + " ");
-                }
+                            sb.Append(GetDateFilterQuery(filter));
+                        }
+                        continue;
 
-                if (filter.ColumnType == TypeCode.DateTime && (filter.FromDate != null || filter.ToDate != null))
-                {
-                    if (sb.Length != stringLength)
-                        sb.Append(" AND ");
+                        case TypeCode.String:  
+                        case TypeCode.Int32:
+                    case TypeCode.Decimal:
+                        if (filter.SearchTerms.Any())
+                        {
+                            var searchTerms = filter.SearchTerms.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
 
-                    sb.Append(GetDateFilterQuery(filter));
-                }
+                            if (searchTerms.Any())
+                            {
+                                if (sb.Length != stringLength)
+                                    sb.Append(" AND ");
+
+                                int searchTermIndex = 0;
+
+                                sb.Append(" ( ");
+
+                                foreach (var searchTerm in searchTerms)
+                                {
+                                    if (searchTermIndex > 0)
+                                    {
+                                        sb.Append(" OR ");
+                                    }
+
+                                    switch (filter.ColumnType)
+                                    {
+                                        case TypeCode.String:
+                                            sb.Append(columnName + " like '%' + @" + columnName + (searchTermIndex > 0 ? searchTermIndex.ToString() : "") + " + '%' ");
+                                            break;
+
+                                        case TypeCode.Int32:
+                                        case TypeCode.Decimal:
+                                            sb.Append(columnName + " = @" + columnName + (searchTermIndex > 0 ? searchTermIndex.ToString() : " "));
+                                            break;
+                                    }
+                                    searchTermIndex++;
+                                }
+
+                                sb.Append(" ) ");
+                            }
+                        }
+                        break;
+                }                            
             }
 
             if (sb.Length == stringLength)

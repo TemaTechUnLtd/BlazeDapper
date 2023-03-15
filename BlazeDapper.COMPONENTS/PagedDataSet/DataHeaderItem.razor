@@ -1,5 +1,4 @@
 ﻿@using BlazeDapper.MODELS.DAL;
-@using Microsoft.AspNetCore.Components.Forms;
 
 @typeparam T
 
@@ -34,7 +33,7 @@
                 case TypeCode.String:
                 case TypeCode.Int32:
                 case TypeCode.Decimal:
-                    @for (var i = 0; i < ColumnHeader.SearchTerms.Count(); i++)
+                    for (var i = 0; i < ColumnHeader.SearchTerms.Count(); i++)
                     {
                         <DataHeaderItemFilter Index="i"
                                   ColumnName="@ColumnHeader.ColumnName"
@@ -50,11 +49,11 @@
                     </div>
                     break;
                 case TypeCode.Boolean:
-                    <InputSelect @bind-Value="@ColumnHeader.BoolValue" class="form-control">
+                    <select @bind="@ColumnHeader.BoolValue" class="form-control">
                         <option value="@BoolValue.Select">@BoolValue.Select</option>
                         <option value="@BoolValue.True">@BoolValue.True</option>
                         <option value="@BoolValue.False">@BoolValue.False</option>
-                    </InputSelect>
+                    </select>
                     break;
                 default:
                     break;
